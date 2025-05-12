@@ -93,6 +93,7 @@ export default async function SearchResults({
                         </div>
                       </div>
                     </Link>
+                    
                   </li>
                 ))}
               </ul>
