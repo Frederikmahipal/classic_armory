@@ -16,16 +16,12 @@ export async function GET(
   }
 
   try {
-    // Fetch basic character data
     const characterData = await fetchFromBlizzardApi(
       `https://eu.api.blizzard.com/profile/wow/character/${realm}/${name.toLowerCase()}?locale=en_GB`,
       'profile-classic1x-eu'
     );
 
-    // For Classic Anniversary, some endpoints might not be available
-    // so we'll make multiple requests for different aspects of the character
 
-    // Try to fetch guild information
     let guildData = null;
     try {
       guildData = await fetchFromBlizzardApi(
@@ -36,7 +32,6 @@ export async function GET(
       console.log('Guild data not available');
     }
 
-    // Try to fetch equipment information
     let equipmentData = null;
     try {
       equipmentData = await fetchFromBlizzardApi(
@@ -55,7 +50,7 @@ export async function GET(
       race: getRaceName(characterData.race?.id),
       faction: getFaction(characterData.race?.id),
       guild: guildData?.guild?.name,
-      lastSeen: new Date().toISOString().split('T')[0], // Just use current date as a placeholder
+      lastSeen: new Date().toISOString().split('T')[0], // current date as placeholder
     };
 
     // Add item level if we have equipment data
@@ -108,8 +103,8 @@ function getRaceName(id?: number): string {
 }
 
 function getFaction(raceId?: number): string {
-  const allianceRaces = [1, 3, 4, 7, 11]; // Human, Dwarf, Night Elf, Gnome, Draenei
-  const hordeRaces = [2, 5, 6, 8, 10]; // Orc, Undead, Tauren, Troll, Blood Elf
+  const allianceRaces = [1, 3, 4, 7, 11]; 
+  const hordeRaces = [2, 5, 6, 8, 10]; 
   
   if (allianceRaces.includes(raceId || 0)) {
     return 'Alliance';

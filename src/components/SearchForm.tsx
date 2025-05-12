@@ -19,7 +19,6 @@ export default function SearchForm({ servers }: SearchFormProps) {
     
     setIsLoading(true);
     
-    // Navigate to the search results page
     window.location.href = `/search/${selectedServer}/${characterName.toLowerCase()}`;
   };
 

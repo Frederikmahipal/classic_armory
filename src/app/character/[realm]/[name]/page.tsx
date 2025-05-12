@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { CharacterDetails } from '@/types/character';
 
-// Function to fetch character details from API
 async function getCharacterDetails(realm: string, name: string): Promise<CharacterDetails | null> {
   try {
     const apiUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/characters/${realm}/${name.toLowerCase()}`;
@@ -78,7 +77,6 @@ export default async function CharacterDetailPage({
     );
   }
 
-  // Get the color for class
   const getClassColor = (characterClass: string): string => {
     const classColors: {[key: string]: string} = {
       'Warrior': 'text-[#C79C6E]',

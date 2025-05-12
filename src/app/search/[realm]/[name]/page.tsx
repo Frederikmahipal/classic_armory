@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { Character } from '@/types/character';
 
-// Function to fetch characters from our API
 async function getSearchResults(realm: string, name: string): Promise<Character[]> {
   try {
     const apiUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/characters/search?realm=${realm}&name=${name}`;
@@ -15,7 +14,6 @@ async function getSearchResults(realm: string, name: string): Promise<Character[
     return data.characters || [];
   } catch (error) {
     console.error('Error fetching search results:', error);
-    // Return empty array on error
     return [];
   }
 }

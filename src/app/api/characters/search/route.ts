@@ -15,7 +15,6 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    // First, we'll try to find an exact match
     try {
       const characterData = await fetchFromBlizzardApi(
         `https://eu.api.blizzard.com/profile/wow/character/${realm}/${name.toLowerCase()}?locale=en_GB`,
@@ -23,7 +22,6 @@ export async function GET(request: NextRequest) {
       );
       
       if (characterData) {
-        // Format the result to match our Character interface
         const result: Character = {
           name: characterData.name,
           level: characterData.level,
@@ -34,25 +32,21 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ characters: [result] });
       }
     } catch (error) {
-      // If exact match fails, it's not an error, we'll continue with search
       console.log('Exact character match not found, trying search');
     }
 
-    // If no exact match, use the search endpoint
-    // Note: Blizzard API may not actually have a search endpoint for classic1x
+
     const searchResults = await fetchFromBlizzardApi(
       `https://eu.api.blizzard.com/profile/wow/character/search?namespace=profile-classic1x-eu&realm=${realm}&name=${name.toLowerCase()}&locale=en_GB&orderby=level`, 
       'profile-classic1x-eu'
     );
     
     if (!searchResults.results || searchResults.results.length === 0) {
-      // No results - return empty array
       return NextResponse.json({ 
         characters: [] 
       });
     }
     
-    // Format the search results
     const characters = searchResults.results.map((char: any) => ({
       name: char.character.name,
       level: char.character.level,
@@ -64,7 +58,6 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error('Error searching for characters:', error);
     
-    // Return empty array rather than mock data
     return NextResponse.json({ 
       characters: [],
       error: 'Failed to fetch character data from Blizzard API'
@@ -72,7 +65,6 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// Helper functions to convert IDs to names
 function getClassName(id?: number): string {
   const classes: {[key: number]: string} = {
     1: 'Warrior',

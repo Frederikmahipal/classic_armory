@@ -1,8 +1,3 @@
-// Utility functions for Blizzard API
-
-/**
- * Get an OAuth token for Blizzard API
- */
 export async function getBlizzardToken() {
   const BLIZZARD_CLIENT_ID = process.env.BLIZZARD_CLIENT_ID;
   const BLIZZARD_CLIENT_SECRET = process.env.BLIZZARD_CLIENT_SECRET;

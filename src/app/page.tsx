@@ -2,11 +2,10 @@ import Image from 'next/image';
 import { Realm } from '@/types/wow';
 import SearchForm from '@/components/SearchForm';
 
-// Server Component - can fetch data directly
 async function getServers() {
   const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/realms`, { 
     cache: 'no-store',
-    next: { revalidate: 60 } // Revalidate every minute
+    next: { revalidate: 60 } 
   });
   
   if (!response.ok) {
@@ -18,7 +17,6 @@ async function getServers() {
 }
 
 export default async function Home() {
-  // Fetch servers server-side
   const servers = await getServers();
   
   return (

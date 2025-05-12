@@ -11,5 +11,4 @@ export interface CharacterDetails extends Character {
   achievementPoints?: number;
   itemLevel?: number;
   lastSeen?: string;
-  // Add more fields as needed for the character detail page
 } 

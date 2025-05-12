@@ -1,5 +1,3 @@
-// WoW related interfaces
-
 export interface Realm {
   name: string;
   slug: string;
